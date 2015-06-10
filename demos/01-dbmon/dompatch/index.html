@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="description" content="DBMON DOMPATCH" />
+  <meta charset="utf-8">
+  <link href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
+  <link href="../styles.css" rel="stylesheet" type="text/css" />
+  <title>dbmon (dompatch)</title>
+</head>
+<body>
+  <div id="dbmon"></div>
+
+  <script id="template-Query" type="text/html">
+  	<td class="Query <%= className %>">
+      <%- elapsed %>
+      <div class="popover left">
+        <div class="popover-content"><%- query %></div>
+        <div class="arrow"/>
+      </div>
+    </td>
+  </script>
+  
+  <script id="template-sample" type="text/html">
+  	<td class="query-count">
+      <span class="<%= countClassName %>">
+        <%= queriesLength %>
+      </span>
+    </td>
+  </script>
+
+  <script id="template-Database" type="text/html">
+	  <tr>
+	    <td class="dbname">
+	      <%- dbname %>
+	    </td>
+	    <%= sample %>
+	  </tr>
+  </script>
+
+  <script id="template-Databases" type="text/html">
+	  <div id="dbmon">
+	    <table class="table table-striped latest-data">
+	      <tbody>
+	        <%= databases %>
+	      </tbody>
+	    </table>
+	  </div>
+  </script>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.8.3/underscore-min.js"></script>
+  <script src="https://cdn.rawgit.com/jesseskinner/dompatch/master/dist/dompatch.js"></script>
+  <script src="../ENV.js"></script>
+  <script src="app.js"></script>
+
+  <script src="https://cdn.rawgit.com/paulirish/memory-stats.js/master/memory-stats.js"></script>
+  <script>
+  var stats = new MemoryStats();
+  stats.domElement.style.position = 'fixed';
+  stats.domElement.style.right        = '0px';
+  stats.domElement.style.bottom       = '0px';
+  document.body.appendChild( stats.domElement );
+  requestAnimationFrame(function rAFloop(){
+      stats.update();
+      requestAnimationFrame(rAFloop);
+  });
+  </script>
+
+
+</body>
+</html>
